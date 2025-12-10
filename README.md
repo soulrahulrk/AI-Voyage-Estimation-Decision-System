@@ -203,34 +203,46 @@ pip install -r requirements.txt
 
 This installs FastAPI, Uvicorn, and Pydantic. Takes ~30 seconds.
 
-**Step 4: Start the backend server**
+**Step 4: Start the servers**
 
+### Option A: Quick Start (Windows Users - Recommended)
+
+Simply double-click `start_all.bat` in the project root folder, or run:
+
+```powershell
+.\start_all.bat
+```
+
+This will:
+- ✅ Start the backend server on port 8000
+- ✅ Start the frontend server on port 5500
+- ✅ Automatically open the application in your default browser
+- ✅ Keep both servers running in separate windows
+
+To stop: Close the two command windows that opened.
+
+### Option B: Manual Start (All Platforms)
+
+**Terminal 1 - Backend:**
 ```bash
 uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-✅ Backend now running at `http://localhost:8000`  
-📚 API documentation available at `http://localhost:8000/docs`
-
-**Step 5: Start the frontend (open a NEW terminal)**
-
-**Keep the backend running**, then open a second terminal/command prompt:
-
-**On Windows:**
+**Terminal 2 - Frontend:**
 ```powershell
-cd AI-Voyage-Estimation-Decision-System\frontend
+# Windows
+cd frontend
 python -m http.server 5500
-```
 
-**On macOS/Linux:**
-```bash
-cd AI-Voyage-Estimation-Decision-System/frontend
+# macOS/Linux
+cd frontend
 python3 -m http.server 5500
 ```
 
-✅ Frontend now running at `http://localhost:5500`
+✅ Backend: `http://localhost:8000` (API docs: `http://localhost:8000/docs`)  
+✅ Frontend: `http://localhost:5500`
 
-**Step 6: Open in browser**
+**Step 5: Open in browser**
 
 Navigate to `http://localhost:5500` and you'll see the voyage estimation form.
 
@@ -255,6 +267,11 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 **"ModuleNotFoundError: No module named 'fastapi'"**  
 - Make sure virtual environment is activated (you should see `(.venv)` in your terminal)
 - Re-run `pip install -r requirements.txt`
+
+**Frontend not displaying / Connection refused**  
+- Use `start_all.bat` (Windows) for persistent server windows
+- Verify both servers are running: `netstat -ano | findstr "8000 5500"`
+- Check firewall isn't blocking local ports
 
 ### Example Test Case
 
@@ -326,15 +343,20 @@ CORS configured, input validation strict, error messages actionable, API respons
 voyage-ship-calculator/
 ├── backend/
 │   ├── __init__.py
-│   ├── main.py               # FastAPI app, endpoints, orchestration logic
-│   ├── distance_tool.py      # Distance lookup with predefined route map
-│   ├── fuel_tool.py          # Fuel & cost calculations
-│   └── decision_engine.py    # Profit zones, rules, decision tag generation
+│   ├── main.py                # FastAPI app, endpoints, orchestration logic
+│   ├── distance_tool.py       # Distance lookup with predefined route map
+│   ├── fuel_tool.py           # Fuel & cost calculations
+│   ├── decision_engine.py     # Profit zones, rules, decision tag generation
+│   └── test_decision_engine.py # Unit tests for decision logic (9 tests)
 ├── frontend/
-│   ├── index.html            # Form + dashboard UI
-│   ├── style.css             # Responsive layout, color-coded banners
-│   └── script.js             # Form validation, API calls, dashboard rendering
-├── requirements.txt          # FastAPI, Uvicorn, Pydantic
+│   ├── index.html             # Form + dashboard UI
+│   ├── style.css              # Responsive layout, color-coded banners
+│   └── script.js              # Form validation, API calls, dashboard rendering
+├── start_all.bat              # Windows: Launch both servers + open browser
+├── start_backend.bat          # Windows: Backend server only
+├── start_frontend.bat         # Windows: Frontend server only
+├── requirements.txt           # FastAPI, Uvicorn, Pydantic, pytest
+├── .gitignore                 # Python, venv, IDE exclusions
 └── README.md
 ```
 
