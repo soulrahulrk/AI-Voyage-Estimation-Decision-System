@@ -168,46 +168,93 @@ Rare edge cases (e.g., zero expense) → Retry once → Falls back to raw calcul
 
 ### Prerequisites
 
-- Python 3.10+
-- Modern browser
+- **Python 3.10 or higher** ([Download here](https://www.python.org/downloads/))
+- **Git** ([Download here](https://git-scm.com/downloads))
+- Modern web browser (Chrome, Firefox, Edge, Safari)
 
-### Setup
+### Quick Start (5 minutes)
 
-1. **Clone and navigate:**
+**Step 1: Clone the repository**
 
-   ```bash
-   cd path/to/voyage-ship-calculator
-   ```
+```bash
+git clone https://github.com/soulrahulrk/AI-Voyage-Estimation-Decision-System.git
+cd AI-Voyage-Estimation-Decision-System
+```
 
-2. **Create virtual environment:**
+**Step 2: Create and activate virtual environment**
 
-   ```bash
-   python -m venv .venv
-   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-   ```
+**On Windows (PowerShell):**
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
 
-3. **Install dependencies:**
+**On macOS/Linux (Bash/Zsh):**
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
 
-   ```bash
-   pip install -r requirements.txt
-   ```
+**Step 3: Install dependencies**
 
-4. **Start backend:**
+```bash
+pip install -r requirements.txt
+```
 
-   ```bash
-   uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
-   ```
+This installs FastAPI, Uvicorn, and Pydantic. Takes ~30 seconds.
 
-   Backend now running at `http://localhost:8000`. API docs at `http://localhost:8000/docs`.
+**Step 4: Start the backend server**
 
-5. **Start frontend (separate terminal):**
+```bash
+uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
+```
 
-   ```bash
-   cd frontend
-   python -m http.server 5500
-   ```
+✅ Backend now running at `http://localhost:8000`  
+📚 API documentation available at `http://localhost:8000/docs`
 
-   Open browser to `http://localhost:5500`.
+**Step 5: Start the frontend (open a NEW terminal)**
+
+**Keep the backend running**, then open a second terminal/command prompt:
+
+**On Windows:**
+```powershell
+cd AI-Voyage-Estimation-Decision-System\frontend
+python -m http.server 5500
+```
+
+**On macOS/Linux:**
+```bash
+cd AI-Voyage-Estimation-Decision-System/frontend
+python3 -m http.server 5500
+```
+
+✅ Frontend now running at `http://localhost:5500`
+
+**Step 6: Open in browser**
+
+Navigate to `http://localhost:5500` and you'll see the voyage estimation form.
+
+---
+
+### Troubleshooting
+
+**"python: command not found"**  
+- On macOS/Linux, use `python3` instead of `python`
+- Verify installation: `python --version` or `python3 --version`
+
+**"cannot be loaded because running scripts is disabled"** (Windows PowerShell)  
+Run this once as Administrator:
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+**Port already in use**  
+- Backend (8000): Change to `--port 8001` in the uvicorn command
+- Frontend (5500): Change to `python -m http.server 5501`
+
+**"ModuleNotFoundError: No module named 'fastapi'"**  
+- Make sure virtual environment is activated (you should see `(.venv)` in your terminal)
+- Re-run `pip install -r requirements.txt`
 
 ### Example Test Case
 
