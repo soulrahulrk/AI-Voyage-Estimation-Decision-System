@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Voyage Estimation & Decision System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Maritime Ops Demo</p>
+        <h1>AI Voyage Estimation & Decision System</h1>
+        <p class="lede">Deterministic voyage planning with MCP-style tool orchestration, failure-safe flows, and clear commercial decisions.</p>
+      </div>
+      <div class="pill">Deterministic · Local · FastAPI</div>
+    </header>
+
+    <main class="grid">
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">User Input</p>
+            <h2>Voyage Parameters</h2>
+          </div>
+          <button id="resetBtn" class="ghost">Reset</button>
+        </div>
+        <form id="voyageForm" novalidate>
+          <div class="form-grid">
+            <label>Start Port
+              <input type="text" name="start_port" required />
+              <span class="error"></span>
+            </label>
+            <label>End Port
+              <input type="text" name="end_port" required />
+              <span class="error"></span>
+            </label>
+            <label>Speed (knots)
+              <input type="number" step="0.1" name="speed" required />
+              <span class="error"></span>
+            </label>
+            <label>Fuel Consumption (tons/day)
+              <input type="number" step="0.1" name="fuel_consumption" required />
+              <span class="error"></span>
+            </label>
+            <label>Fuel Price ($ per ton)
+              <input type="number" step="0.01" name="fuel_price" required />
+              <span class="error"></span>
+            </label>
+            <label>Port Charges ($)
+              <input type="number" step="0.01" name="port_charges" required />
+              <span class="error"></span>
+            </label>
+            <label>Freight Income ($)
+              <input type="number" step="0.01" name="freight_income" required />
+              <span class="error"></span>
+            </label>
+            <label>Currency
+              <select name="currency">
+                <option value="USD">USD</option>
+                <option value="INR">INR</option>
+                <option value="EUR">EUR</option>
+              </select>
+            </label>
+          </div>
+
+          <div id="manualInputs" class="manual hidden">
+            <p class="eyebrow">Manual Overrides</p>
+            <div class="manual-grid">
+              <label>Manual Distance (NM)
+                <input type="number" step="0.1" name="manual_distance" />
+              </label>
+              <label>Manual Fuel Cost ($)
+                <input type="number" step="0.01" name="manual_fuel_cost" />
+              </label>
+            </div>
+          </div>
+
+          <button type="submit" class="primary">Estimate Voyage</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">Output</p>
+            <h2>Decision Dashboard</h2>
+          </div>
+          <span id="decisionTag" class="tag">Awaiting input</span>
+        </div>
+        <div id="banners"></div>
+
+        <div id="results" class="results">
+          <div class="cards">
+            <div class="card">
+              <p class="eyebrow">Key Numbers</p>
+              <ul class="metrics" id="keyNumbers"></ul>
+            </div>
+            <div class="card">
+              <p class="eyebrow">Decision Engine</p>
+              <ul class="metrics" id="decisionStats"></ul>
+            </div>
+            <div class="card">
+              <p class="eyebrow">Business Suggestions</p>
+              <ul class="list" id="suggestions"></ul>
+            </div>
+          </div>
+          <div class="list-wrap">
+            <div>
+              <p class="eyebrow">Warnings</p>
+              <ul class="list" id="warnings"></ul>
+            </div>
+            <div>
+              <p class="eyebrow">Risk Flags</p>
+              <ul class="list" id="risks"></ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
